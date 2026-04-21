@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.env
+.venv/
+env/
+venv/
+
+# Spectra data (do not commit input data or outputs)
+uploads/
+spectra_plotter/uploads/
+input/
+output/
+outputs/
+*.fits
+*.fit
+*.fits.gz
+*.fit.gz
+*.fz
+*.ascii
+*.dat
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log

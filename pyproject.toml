@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spectra-plotter"
+version = "1.0.0"
+description = "Interactive astronomical spectra visualization and line identification tool"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+    {name = "Harsh Kumar", email = "harshkumar@fas.harvard.edu"},
+]
+keywords = [
+    "astronomy", "spectra", "spectroscopy", "visualization",
+    "transients", "supernovae", "dash", "plotly",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "dash>=2.0",
+    "plotly>=5.0",
+    "numpy>=1.20",
+    "pandas>=1.3",
+    "scipy>=1.7",
+    "astropy>=5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+    "flake8",
+    "black",
+]
+
+[project.scripts]
+spectra-plotter = "spectra_plotter.app:main"
+
+[project.urls]
+Homepage = "https://github.com/harsh-kumar-agrawal/spectra-plotter"
+Repository = "https://github.com/harsh-kumar-agrawal/spectra-plotter"
+Issues = "https://github.com/harsh-kumar-agrawal/spectra-plotter/issues"
+
+[tool.setuptools.packages.find]
+include = ["spectra_plotter*"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
