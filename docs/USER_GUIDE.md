@@ -17,7 +17,7 @@ This guide walks you through every feature of SpectraPlotter, with practical exa
 
 ```bash
 # Clone
-git clone https://github.com/harsh-kumar-agrawal/spectra-plotter.git
+git clone https://github.com/harshkumar13/spectra-plotter.git
 cd spectra-plotter
 
 # Install (editable mode -- changes to code take effect immediately)

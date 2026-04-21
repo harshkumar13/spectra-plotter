@@ -52,7 +52,7 @@ A browser-based application for loading, processing, and visualizing astronomica
 ### Option A: Install from source (recommended for development)
 
 ```bash
-git clone https://github.com/harsh-kumar-agrawal/spectra-plotter.git
+git clone https://github.com/harshkumar13/spectra-plotter.git
 cd spectra-plotter
 pip install -e .
 ```
@@ -60,7 +60,7 @@ pip install -e .
 ### Option B: Install dependencies only
 
 ```bash
-git clone https://github.com/harsh-kumar-agrawal/spectra-plotter.git
+git clone https://github.com/harshkumar13/spectra-plotter.git
 cd spectra-plotter
 pip install -r requirements.txt
 ```

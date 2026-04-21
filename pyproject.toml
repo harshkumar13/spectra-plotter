@@ -49,9 +49,9 @@ dev = [
 spectra-plotter = "spectra_plotter.app:main"
 
 [project.urls]
-Homepage = "https://github.com/harsh-kumar-agrawal/spectra-plotter"
-Repository = "https://github.com/harsh-kumar-agrawal/spectra-plotter"
-Issues = "https://github.com/harsh-kumar-agrawal/spectra-plotter/issues"
+Homepage = "https://github.com/harshkumar13/spectra-plotter"
+Repository = "https://github.com/harshkumar13/spectra-plotter"
+Issues = "https://github.com/harshkumar13/spectra-plotter/issues"
 
 [tool.setuptools.packages.find]
 include = ["spectra_plotter*"]
