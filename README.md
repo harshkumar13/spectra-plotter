@@ -31,14 +31,15 @@ A browser-based application for loading, processing, and visualizing astronomica
 - **Interactive plots** -- Plotly-powered with zoom, pan, scroll-zoom, hover readouts, measurement tools, and high-res PNG export
 - **200+ spectral lines** -- Organized across 35+ element/ion groups (H, He, C, N, O, Fe, Si, Ca, Mg, Na, etc.)
 - **Supernova line sets** -- Pre-configured groups for SLSN-I at different phases (pre-peak, peak, late, nebular) and host galaxy lines
-- **Per-spectrum redshift** -- Individual z value per file, session-persistent
-- **Velocity shift** -- Apply radial velocity offsets (km/s) to all line markers
-- **Telluric masking** -- Selectable atmospheric absorption bands (O2, H2O) masked in the observed frame
+- **Per-spectrum redshift** -- Individual z value per file, session-persistent, with an "Apply to all" quick-set; the x-axis label switches between observed and rest frame automatically
+- **One-click line groups** -- Click an element's name to toggle its whole line group; individual per-line checkboxes remain
+- **Velocity shift** -- Apply radial velocity offsets (km/s) to photospheric line markers (telluric and host-galaxy markers are exempt)
+- **Telluric masking** -- Selectable atmospheric absorption bands (O2, H2O) masked in the observed frame; telluric markers are mapped onto the rest-frame axis
 - **Signal processing** -- Savitzky-Golay smoothing, Gaussian smoothing, wavelength binning, cosmic ray removal
-- **Normalization** -- Individual-max, common-overlap, or raw flux
-- **Dark theme** -- Eye-friendly interface for observatory / nighttime use
+- **Normalization & stacking** -- Individual-max, common-overlap, or raw flux, plus a per-trace vertical offset for comparing epochs
+- **Dark theme** -- "Observatory console" dark UI with a warm amber accent, designed for nighttime use
 - **CSV export** -- Download processed rest-frame spectra
-- **Local-first** -- Runs on your machine; scan any folder directly
+- **Local-first** -- Runs on your machine; scan any folder directly, or launch as a local app-style window with `--window`
 
 ---
 
@@ -145,21 +146,24 @@ Once you select spectra, a row of **z= inputs** appears below the toolbar:
 z= [0.072] SN2024abc_20240115.fits   z= [0.072] SN2024abc_20240124.fits
 ```
 
-1. Type the redshift value for each spectrum.
-2. The plot immediately updates: wavelengths are corrected to the rest frame via `lambda_rest = lambda_obs / (1 + z)`.
-3. Redshifts are remembered for the duration of your browser session.
+1. Type the redshift value for each spectrum (press Enter or click away to apply).
+2. The plot updates: wavelengths are corrected to the rest frame via `lambda_rest = lambda_obs / (1 + z)`, and the x-axis label switches to "Rest Wavelength".
+3. To set the same z on every selected spectrum (multiple epochs of one object), type it in the small input on the right of the redshift row and click **Apply to all**.
+4. Redshifts are remembered for the duration of your browser session.
 
 ### Step 4: Identify spectral lines
 
 The **right panel** shows a 4-column grid of element groups. Each group has:
-- A **checkbox next to the element name** -- toggle this to select/deselect ALL lines in that group at once
+- The **element name itself is a button** -- one click selects ALL lines in that group; another click deselects them
 - Individual line checkboxes below it
 
 **Typical workflow for SN classification:**
-1. Check the **H (Balmer)** group checkbox to show H-alpha, H-beta, H-gamma, H-delta
-2. Check **He I** to test for helium
-3. For SLSN-I, check **SLSN-I Peak** to overlay the characteristic O II / Fe II / Fe III lines at once
-4. Click **Clear all** (top of the panel) to remove all line markers
+1. Click **H (Balmer)** to show H-alpha, H-beta, H-gamma, H-delta
+2. Click **He I** to test for helium
+3. For SLSN-I, click **SLSN-I Peak** to overlay the characteristic O II / Fe II / Fe III lines at once
+4. Click **Clear all** (top of the panel) to remove all line markers; the badge next to the panel title shows how many markers are active
+
+Hovering a line label on the plot shows the exact rest wavelength.
 
 **Velocity shift:**
 - At the top of the line ID panel, enter a **v-shift** in km/s.
@@ -181,6 +185,7 @@ The **toolbar below the plot** gives you quick access to processing:
 | **Binning** | Enter a number > 1 to bin the spectrum (mean of N adjacent pixels). Set to 1 for no binning. |
 | **Smooth** | Dropdown: `None`, `SavGol` (Savitzky-Golay), or `Gauss` (Gaussian). The number field sets the window size (SavGol) or is used to derive sigma (Gaussian). |
 | **Norm** | `Off` = raw flux, `Each` = normalize each spectrum to its own max, `Common` = normalize all to their common overlap region |
+| **Offset** | Vertical offset added cumulatively to each successive trace (e.g., `0.5` stacks spectra WISeREP-style) |
 | **CR clip** | Check to enable conservative cosmic ray removal (median-filter + MAD clipping) |
 | **Log Y** | Check to switch y-axis to logarithmic scale |
 
@@ -289,7 +294,7 @@ The built-in catalog includes rest-frame wavelengths organized by element/ion:
 ## Command-Line Options
 
 ```
-usage: spectra-plotter [-h] [--port PORT] [--host HOST] [--folder FOLDER] [--debug]
+usage: spectra-plotter [-h] [--port PORT] [--host HOST] [--folder FOLDER] [--window] [--debug]
 
 SpectraPlotter - Astronomical spectra viewer
 
@@ -297,6 +302,7 @@ options:
   --port PORT      Port number (default: 8050)
   --host HOST      Host address (default: 127.0.0.1; use 0.0.0.0 for network access)
   --folder FOLDER  Default spectra folder to scan on startup
+  --window         Open in a local app-style window (no browser tabs/URL bar)
   --debug          Enable Dash debug mode (auto-reload on code changes)
 ```
 
